@@ -1,0 +1,18 @@
+{
+    "language": "English",
+    "upload_book": "رفع الكتاب",
+    "book_name": "اسم الكتاب",
+    "book_author": "مؤلف الكتاب",
+    "about_book": "عن الكتاب",
+    "copies": "نسخ",
+    "by":"بواسطه",
+    "go_back":"العودة",
+    "go_home":"الرئيسية",
+    "borrow_book":"استعارة كتاب",
+    "return_book":"ارجاع كتاب",
+    "borrow_book_success":"تم استعارة الكتاب بنجاح",
+    "return_book_success":"تم ارجاع الكتاب بنجاح",
+    "no_copies":"لا يوجد نسخ",
+    "no_returns": "لا يوجد ارجاع",
+    "len":"En"
+}

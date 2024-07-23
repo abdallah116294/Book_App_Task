@@ -1,0 +1,18 @@
+{
+    "language": "العربية",
+    "upload_book": "upload Book",
+    "book_name":"Book Name",
+    "book_author":"Book Author",
+    "about_book":"About Book",
+    "copies":"Copies",
+    "by":"By",
+    "go_back":"Back",
+    "go_home":"Go Home",
+    "borrow_book":"Borrow",
+    "return_book":"Return",
+    "borrow_book_success":"Borrow Book Success",
+    "return_book_success":"Return Book Success",
+     "no_copies":" no copies ",
+    "no_returns": "no returns ",
+    "len":"AR"
+}
