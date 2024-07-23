@@ -1,3 +1,4 @@
+import 'package:book_app_task/core/localization/app_localization.dart';
 import 'package:flutter/material.dart';
 
 extension ContextEx on BuildContext{
@@ -15,7 +16,9 @@ extension ContextEx on BuildContext{
     return Navigator.of(this)
         .pushNamedAndRemoveUntil(routeName, (route) => false);
   }
-
+ String translate(String langkey) {
+    return AppLocalizations.of(this)!.translate(langkey).toString();
+  }
   void pop() => Navigator.of(this).pop();
 
 }
