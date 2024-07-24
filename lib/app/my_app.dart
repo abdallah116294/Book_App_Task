@@ -8,8 +8,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
+  const MyApp({super.key,required this.startWidget});
+  final String startWidget;
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
                     localeResolutionCallback:
                         AppLocalizationsSetup.localeResolutionCallback,
                     onGenerateRoute: AppRoutes.onGenerateRoute,
-                    initialRoute: AppRoutes.uploadBookScreen,
+                    initialRoute:startWidget,
                     debugShowCheckedModeBanner: false,
                     home: UploadBookScreen(),
                   );

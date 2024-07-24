@@ -14,5 +14,8 @@
     "return_book_success":"Return Book Success",
      "no_copies":" no copies ",
     "no_returns": "no returns ",
+    "pleas_enter_book_name":"please enter book name",
+    "pleas_enter_book_author":"please enter book author   ",
+    "pleas_enter_about_book":"please enter about book",
     "len":"AR"
 }

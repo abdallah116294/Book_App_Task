@@ -27,7 +27,7 @@ class AppCubitCubit extends Cubit<AppCubitState> {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setString('selected_language', languageCode);
   }
-    // Toggle between Arabic and English
+
   void toggleLanguage() {
     final currentLocale = state is SelectedLocale ? (state as SelectedLocale).locale : Locale('en');
     if (currentLocale.languageCode == 'en') {
