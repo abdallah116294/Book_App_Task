@@ -60,7 +60,7 @@ class _InfoWidgetState extends State<InfoWidget> {
                   actionName: context.translate(LangKeys.go_back),
                   context: context,
                   onTap: () {
-                    context.pop();
+                    context.pushNamedAndRemoveUntil(AppRoutes.homeScreen);
                   });
             } else {
               DialogAlertFun.showMyDialog(
@@ -81,12 +81,20 @@ class _InfoWidgetState extends State<InfoWidget> {
                   onTap: () {
                     context.pop();
                   });
-            } else if (widget.copiesAfter > 0 ||
+            } else if (widget.copiesAfter > 0 &&
                 widget.copiesAfter < widget.copies!) {
               DialogAlertFun.showMyDialog(
                   daliogContent:
                       context.translate(LangKeys.return_book_success),
                   actionName: context.translate(LangKeys.go_home),
+                  context: context,
+                  onTap: () {
+                    context.pushNamedAndRemoveUntil(AppRoutes.homeScreen);
+                  });
+            } else if (widget.copiesAfter == widget.copies!) {
+              DialogAlertFun.showMyDialog(
+                  daliogContent: context.translate(LangKeys.return_book_success),
+                  actionName: context.translate(LangKeys.go_back),
                   context: context,
                   onTap: () {
                     context.pushNamedAndRemoveUntil(AppRoutes.homeScreen);
@@ -114,11 +122,8 @@ class _InfoWidgetState extends State<InfoWidget> {
                         style: TextStyles.font22MoveW700,
                       ),
                       verticalSpacing(30),
-                      Icon(
-                        Icons.book,
-                        size: 150.sp,
-                     color:    AppColor.primaryColor
-                      ),
+                      Icon(Icons.book,
+                          size: 150.sp, color: AppColor.primaryColor),
                       Text(
                         '${context.translate(LangKeys.by)}:${widget.bookAuthor}',
                         style: TextStyles.font17BlackW500.copyWith(
@@ -197,7 +202,7 @@ class _InfoWidgetState extends State<InfoWidget> {
                       verticalSpacing(10),
                       BlocBuilder<AppCubitCubit, AppCubitState>(
                         builder: (context, state) {
-                           final alignment =
+                          final alignment =
                               context.read<AppCubitCubit>().getAlignment();
                           return Align(
                             alignment: alignment,
@@ -225,7 +230,7 @@ class _InfoWidgetState extends State<InfoWidget> {
                                     border: Border.all(),
                                   ),
                                   child: Center(
-                                    child: Text("0",
+                                    child: Text(widget.copies.toString(),
                                         style: TextStyles.font17BlackW500
                                             .copyWith(
                                                 fontWeight: FontWeight.w300,

@@ -60,13 +60,18 @@ class UploadBookCubit extends Cubit<UploadBookState> {
           emit(UpdateBorrowValueSuccessState(id: response));
         }
       } else if (functiontype == "Replay") {
-        if (bookCopiesAfter >= 0 || bookCopiesBefore > bookCopiesAfter) {
+        if(bookCopiesAfter == 0){
+             var response = await sqlDb.updateData(
+              'UPDATE books SET bookCopiesAfter = 0 WHERE id = $bookId');
+          emit(UpadteReplayValueSuccessState(id: response));
+        }
+       else if (bookCopiesAfter >= 0 && bookCopiesBefore > bookCopiesAfter) {
           var response = await sqlDb.updateData(
-              'UPDATE books SET bookCopiesAfter = bookCopiesAfter -1 WHERE id = $bookId');
+              'UPDATE books SET bookCopiesAfter = bookCopiesAfter +1 WHERE id = $bookId');
           emit(UpadteReplayValueSuccessState(id: response));
         } else if (bookCopiesAfter == bookCopiesBefore) {
           var response = await sqlDb.updateData(
-              'UPDATE books SET bookCopiesAfter = bookCopiesBefore - 1 WHERE id = $bookId');
+              'UPDATE books SET bookCopiesAfter = 0 WHERE id = $bookId');
           emit(UpadteReplayValueSuccessState(id: response));
         }
       }

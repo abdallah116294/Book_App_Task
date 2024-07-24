@@ -20,20 +20,25 @@ class UploadBookBody extends StatefulWidget {
       required this.bookNameController,
       required this.bookAuthorController,
       required this.aboutBookController,
-      required this.bookCpoiesBefore,required this.onTap, required this.bookCopies});
+      required this.bookCpoiesBefore,
+      required this.onTap,
+      required this.bookCopies,
+      required this.formKey});
   final TextEditingController bookNameController;
   final TextEditingController bookAuthorController;
   final TextEditingController aboutBookController;
   int bookCpoiesBefore;
   VoidCallback onTap;
- final Widget bookCopies; 
+  final Widget bookCopies;
+  final GlobalKey<FormState> formKey;
   @override
   State<UploadBookBody> createState() => _UploadBookBodyState();
 }
 
 class _UploadBookBodyState extends State<UploadBookBody> {
   //int widget.BookCpoiesBefore  = 0;
-    XFile? _pickedImage;
+  //var formKey = GlobalKey<FormState>();
+  XFile? _pickedImage;
   Future<void> localImagePicker() async {
     final ImagePicker picker = ImagePicker();
     await DialogAlertFun.imagePickerDialog(
@@ -52,72 +57,94 @@ class _UploadBookBodyState extends State<UploadBookBody> {
           });
         });
   }
+
   @override
   Widget build(BuildContext context) {
-     Size size = MediaQuery.of(context).size;
+    Size size = MediaQuery.of(context).size;
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            ChangeLang(onTap: (){
+            ChangeLang(onTap: () {
               context.read<AppCubitCubit>().toggleLanguage();
             }),
             verticalSpacing(20),
-             Center(
+            Center(
                 child: TitlesTextWidget(
               label: context.translate(LangKeys.uploadBook),
               color: AppColor.text,
             )),
             verticalSpacing(20),
-                    SizedBox(
-                    height: size.width * 0.3,
-                    width: size.width * 0.3,
-                    child: PickImageWidget(
-                      pickedImage: _pickedImage,
-                      function: () {
-                        localImagePicker();
-                      },
-                    ),
-                  ),
+            SizedBox(
+              height: size.width * 0.3,
+              width: size.width * 0.3,
+              child: PickImageWidget(
+                pickedImage: _pickedImage,
+                function: () {
+                  localImagePicker();
+                },
+              ),
+            ),
             verticalSpacing(20),
             Form(
+                key: widget.formKey,
                 child: Column(
-              children: [
-                CustomTextFormFiled(
-                  controller: widget.bookNameController,
-                  inputFiled: context.translate(LangKeys.bookName),
-                ),
-                verticalSpacing(20),
-                CustomTextFormFiled(
-                  controller: widget.bookAuthorController,
-                  inputFiled:context.translate(LangKeys.bookAuthor),
-                ),
-                verticalSpacing(20),
-                CustomTextFormFiled(
-                  controller: widget.aboutBookController,
-                  inputFiled: context.translate(LangKeys.aboutBook),
-                ),
-                verticalSpacing(20),
-                 TitlesTextWidget(label: context.translate(LangKeys.copies)),
-                 verticalSpacing(20),
-                Center(
-child:widget.bookCopies ,
-                ),
-                verticalSpacing(20),
-                CustomFadeInRight(
-                  duration: 600,
-                  child: AppButton(
-                      buttonColor: AppColor.primaryColor,
-                      width: double.infinity - 20,
-                      height: 60,
-                      buttonName: context.translate(LangKeys.uploadBook),
-                      onTap: widget.onTap,
-                      textColor: Colors.white,
-                      white: true),
-                )
-              ],
-            )),
+                  children: [
+                    CustomTextFormFiled(
+                      controller: widget.bookNameController,
+                      inputFiled: context.translate(LangKeys.bookName),
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return context.translate(LangKeys.pleasEnterBookName);
+                        }
+                        return null; 
+                      },
+                    ),
+                    verticalSpacing(20),
+                    CustomTextFormFiled(
+                      controller: widget.bookAuthorController,
+                      inputFiled: context.translate(LangKeys.bookAuthor),
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return context
+                              .translate(LangKeys.pleasEnterBookAuthor);
+                        }
+                        return null; 
+                      },
+                    ),
+                    verticalSpacing(20),
+                    CustomTextFormFiled(
+                      controller: widget.aboutBookController,
+                      inputFiled: context.translate(LangKeys.aboutBook),
+                      validator: (String? value) {
+                        if (value!.isEmpty) {
+                          return context
+                              .translate(LangKeys.pleasEnterAboutBook);
+                        }
+                        return null; 
+                      },
+                    ),
+                    verticalSpacing(20),
+                    TitlesTextWidget(label: context.translate(LangKeys.copies)),
+                    verticalSpacing(20),
+                    Center(
+                      child: widget.bookCopies,
+                    ),
+                    verticalSpacing(20),
+                    CustomFadeInRight(
+                      duration: 600,
+                      child: AppButton(
+                          buttonColor: AppColor.primaryColor,
+                          width: double.infinity - 20,
+                          height: 60,
+                          buttonName: context.translate(LangKeys.uploadBook),
+                          onTap: widget.onTap,
+                          textColor: Colors.white,
+                          white: true),
+                    )
+                  ],
+                )),
           ],
         ),
       ),

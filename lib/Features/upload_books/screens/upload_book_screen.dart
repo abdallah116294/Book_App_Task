@@ -6,9 +6,11 @@ import 'package:book_app_task/config/local_db/sqldb.dart';
 import 'package:book_app_task/config/routes/app_routes.dart';
 import 'package:book_app_task/core/extensions/context_extensions.dart';
 import 'package:book_app_task/core/helper/spacing.dart';
+import 'package:book_app_task/core/shared_pref/shered_pref.dart';
 import 'package:book_app_task/core/utils/app_color.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 class UploadBookScreen extends StatefulWidget {
   UploadBookScreen({
     super.key,
@@ -22,6 +24,7 @@ class _UploadBookScreenState extends State<UploadBookScreen> {
   TextEditingController bookNameController = TextEditingController();
   TextEditingController bookAuthorController = TextEditingController();
   TextEditingController aboutBookController = TextEditingController();
+  final formkey = GlobalKey<FormState>();
   int bookCopiesBefore = 0;
   void _incrementCounter() {
     setState(() {
@@ -56,6 +59,7 @@ class _UploadBookScreenState extends State<UploadBookScreen> {
           },
           builder: (context, state) {
             return UploadBookBody(
+              formKey: formkey,
               bookCopies: Row(
                 //crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -99,13 +103,16 @@ class _UploadBookScreenState extends State<UploadBookScreen> {
                 ],
               ),
               onTap: () async {
-                debugPrint('${bookNameController.text}');
-                context.read<UploadBookCubit>().insertData(
-                    bookName: bookNameController.text,
-                    bookAuthor: bookAuthorController.text,
-                    aboutBook: aboutBookController.text,
-                    bookCopiesBefore: bookCopiesBefore,
-                    bookCopiesAfter: 0);
+                if (formkey.currentState!.validate()) {
+                  SharedPref.sharedPreferences.setBool('UploadBook', true);
+                  debugPrint('${bookNameController.text}');
+                  context.read<UploadBookCubit>().insertData(
+                      bookName: bookNameController.text,
+                      bookAuthor: bookAuthorController.text,
+                      aboutBook: aboutBookController.text,
+                      bookCopiesBefore: bookCopiesBefore,
+                      bookCopiesAfter: 0);
+                }
               },
               bookCpoiesBefore: bookCopiesBefore,
               aboutBookController: aboutBookController,

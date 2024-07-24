@@ -14,5 +14,8 @@
     "return_book_success":"تم ارجاع الكتاب بنجاح",
     "no_copies":"لا يوجد نسخ",
     "no_returns": "لا يوجد ارجاع",
+    "pleas_enter_book_name":"الرجاء ادخال اسم الكتاب",
+    "pleas_enter_book_author":"الرجاء ادخال اسم مؤلف",
+    "pleas_enter_about_book":"الرجاء ادخال عن كتاب",
     "len":"En"
 }
